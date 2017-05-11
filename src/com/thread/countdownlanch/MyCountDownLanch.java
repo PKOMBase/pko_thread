@@ -16,6 +16,7 @@ public class MyCountDownLanch {
             setState(count);
         }
 
+        @Override
         protected int tryAcquireShared(int arg) {
             return getState() == 0 ? 1 : -1;
         }

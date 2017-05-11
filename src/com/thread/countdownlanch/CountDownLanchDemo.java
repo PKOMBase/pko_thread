@@ -1,11 +1,10 @@
 package com.thread.countdownlanch;
 
-import java.util.concurrent.CountDownLatch;
 
 public class CountDownLanchDemo {
     public static void main(String[] args) throws InterruptedException {
 
-        CountDownLatch countDownLatch = new CountDownLatch(2);
+        MyCountDownLanch countDownLatch = new MyCountDownLanch(2);
 
         Thread mainThread = Thread.currentThread();
         Runnable runnable = new Runnable() {
@@ -17,8 +16,8 @@ public class CountDownLanchDemo {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("thread:" + Thread.currentThread().getName() + "mainThreadStatus:"
-                        + mainThread.getName() + " , " + mainThread.getState());
+                System.out.println("thread" + Thread.currentThread().getName() + ", mainThread:" + mainThread.getName()
+                        + " , " + mainThread.getState());
                 countDownLatch.countDown();
             }
         };
@@ -31,8 +30,6 @@ public class CountDownLanchDemo {
         thread2.start();
         thread3.start();
         thread4.start();
-
-        System.out.println("main start, mainThreadStatus:" + mainThread.getName() + " , " + mainThread.getState());
 
         countDownLatch.await();
 
