@@ -6,17 +6,17 @@ import java.util.concurrent.CyclicBarrier;
 public class CyclicBarrierDemo {
 
     public static void main(String[] args) throws InterruptedException {
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(2, new Runnable() {
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3, new Runnable() {
 
             @Override
             public void run() {
-                System.out.println("cyclicBarrier end1, thread:" + Thread.currentThread().getName());
+                System.out.println("barrierAction start, thread:" + Thread.currentThread().getName());
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println("cyclicBarrier end2");
+                System.out.println("barrierAction end");
             }
         });
 
@@ -42,7 +42,7 @@ public class CyclicBarrierDemo {
                 String name = Thread.currentThread().getName();
                 System.out.println("await before, thread:" + name);
                 try {
-                    Thread.sleep(2100 + (int) (Math.random() * 1000));
+                    Thread.sleep(2000 + (int) (Math.random() * 1000));
                     cyclicBarrier.await();
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
@@ -53,14 +53,16 @@ public class CyclicBarrierDemo {
 
         Thread thread1 = new Thread(runnable1, "t1");
         Thread thread2 = new Thread(runnable2, "t2");
+        Thread thread3 = new Thread(runnable1, "t3");
         thread1.start();
         thread2.start();
+        thread3.start();
 
-        Thread.sleep(2100);
+        Thread.sleep(2000);
 
         System.out.println("thread1:" + thread1.getName() + " , " + thread1.getState());
         System.out.println("thread2:" + thread2.getName() + " , " + thread2.getState());
+        System.out.println("thread3:" + thread3.getName() + " , " + thread3.getState());
 
-        System.out.println("end");
     }
 }
