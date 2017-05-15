@@ -38,6 +38,7 @@ public class MyCyclicBarrier {
                 condition.signalAll();
 
                 count = parties;
+                return 0;
             }
 
             // index不为0，线程wait，自旋保证执行结果
